@@ -47,7 +47,7 @@ Na sobre o filtro de Wiener, obtivemos o melhor filtro linear sob estas condiç�
 
 O filtro de Kalman (R. E. Kalman, 1960) resolve o mesmo problema de EQM mínimo, mas com **um modelo dinâmico explícito** do fenômeno e com um **cálculo recursivo**: a cada nova medição, atualiza-se a estimativa sem reprocessar o passado.
 
-> **Atenção à notação.** Na Aula 1, $\mathbf{R}$ era a matriz de autocorrelação da entrada, $x(n)$ era a entrada e $d(n)$ o sinal desejado. Nesta aula, $\mathbf{x}_k$ é o **estado**, $z_k$ é a **medição**, $\mathbf{Q}$ é a covariância do ruído de processo e $\mathbf{R}$ é a covariância do ruído de medição. São símbolos reutilizados, mas objetos diferentes.
+> **Atenção à notação.** Na aula do filtro de Wiener, $\mathbf{R}$ era a matriz de autocorrelação da entrada, $x(n)$ era a entrada e $d(n)$ o sinal desejado. Nesta aula, $\mathbf{x}_k$ é o **estado**, $z_k$ é a **medição**, $\mathbf{Q}$ é a covariância do ruído de processo e $\mathbf{R}$ é a covariância do ruído de medição. São símbolos reutilizados, mas objetos diferentes.
 
 ---
 
@@ -155,7 +155,7 @@ $$
 \boxed{\mathbf{K} = \mathbf{P}^-\mathbf{H}^{\mathsf T}\mathbf{S}^{-1}}
 $$
 
-### 6.2 Ligação com a Aula 1: ortogonalidade
+### 6.2 Ortogonalidade
 
 Com esse ganho, o erro de estimação a posteriori é **ortogonal à inovação** (e, de forma geral, a todas as medições passadas). É o mesmo princípio da ortogonalidade de Wiener, agora aplicado de forma recursiva: cada medição nova só contribui com a parte **imprevisível** dela, a inovação.
 
@@ -322,7 +322,7 @@ disp(table(Kh(:, end), Kss, 'VariableNames', {'K_final', 'K_estacionario'}))
 
 ## 9. Prática 3 — Kalman em regime permanente é Wiener
 
-Esta é a prática que fecha o arco do curso: o Wiener (Aula 1) é o **limite estacionário** do Kalman.
+O Wiener é o **limite estacionário** do Kalman.
 
 **Modelo estacionário.** Um sinal de sensor (em V) segue um processo gauss-markoviano de primeira ordem, observado com ruído:
 
@@ -340,10 +340,10 @@ $$
 h_{\text{Kalman}}(j) = K\,\big[(1-K)\,a\big]^{j}, \quad j \ge 0.
 $$
 
-Essa resposta ao impulso (IIR) deve coincidir com a do **Wiener causal** para estimar $x_k$ a partir de $z_k, z_{k-1}, \dots$. Podemos verificar treinando o Wiener FIR da Aula 1, com entrada $z$ e sinal desejado $x$ (conhecido na simulação).
+Essa resposta ao impulso (IIR) deve coincidir com a do **Wiener causal** para estimar $x_k$ a partir de $z_k, z_{k-1}, \dots$. Podemos verificar treinando o Wiener FIR, com entrada $z$ e sinal desejado $x$ (conhecido na simulação).
 
 ```matlab
-%% Prática 3 — Kalman estacionário vs. Wiener FIR (usa wienerFIR.m da Aula 1)
+%% Prática 3 — Kalman estacionário vs. Wiener FIR (usa wienerFIR.m)
 clear; clc; close all
 rng(2)
 
@@ -386,7 +386,7 @@ title('O Kalman em regime permanente reproduz o Wiener')
 
 ## 10. Prática 4 — Kalman como filtro adaptativo (e o elo com o RLS)
 
-Voltamos ao problema de **identificação de sistema** da Aula 1, agora com uma planta que **muda** no meio do experimento. Tratamos os coeficientes do filtro como **estado**:
+Voltamos ao problema de **identificação de sistema**, agora com uma planta que **muda** no meio do experimento. Tratamos os coeficientes do filtro como **estado**:
 
 $$
 \mathbf{w}_k = \mathbf{w}_{k-1} + \mathbf{q}_{k-1}, \quad \mathbf{q}_k \sim \mathcal{N}(\mathbf{0}, q\,\mathbf{I}) \qquad\text{(coeficientes derivam)}
@@ -410,7 +410,7 @@ Um = toeplitz(u, [u(1); zeros(L-1, 1)]);      % linha k = u_k^T
 h = [repmat([1; -0.5], 1, N/2), repmat([0.5; 0.8], 1, N/2)];     % L × N
 d = sum(Um.' .* h, 1).' + sv*randn(N, 1);
 
-% --- Wiener global (Aula 1): um único conjunto de coeficientes ---
+% --- Wiener global: um único conjunto de coeficientes ---
 wW = wienerFIR(u, d, L);
 
 % --- Kalman: F = I, H_k = u_k^T, Q = q*I, R = sv^2 ---
@@ -436,7 +436,7 @@ title('Verdade (preto) × Kalman (cores) × Wiener fixo (tracejado)')
 
 **Para discutir:**
 
-- O Wiener da Aula 1 devolve **uma média** das duas plantas, que não descreve nenhuma delas. O Kalman **rastreia** a mudança em dezenas de amostras.
+- O Wiener devolve **uma média** das duas plantas, que não descreve nenhuma delas. O Kalman **rastreia** a mudança em dezenas de amostras.
 - $q$ regula a agilidade: $q$ grande segue mudanças rápidas com mais ruído; $q$ pequeno dá estimativas suaves mas lentas (exercício E7).
 - **Elo com o RLS.** O RLS com fator de esquecimento $\lambda$ é equivalente a um Kalman para esse mesmo modelo em que, em vez de somar $\mathbf{Q}$, a covariância é **inflada** multiplicativamente, $\mathbf{P}_{k\mid k-1} = \mathbf{P}_{k-1\mid k-1}/\lambda$. Ou seja, o RLS é um caso particular de Kalman com uma escolha específica de incerteza do modelo. Ambos têm custo $\mathcal{O}(L^2)$ por amostra.
 
