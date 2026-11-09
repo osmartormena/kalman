@@ -1,10 +1,5 @@
 # O Filtro de Kalman
 
-**Curso:** Introdução aos Filtros Adaptativos
-**Duração sugerida:** 100 min (2 × 50 min)
-**Pré-requisitos:** Aula 1 (filtro de Wiener, EQM, ortogonalidade), álgebra matricial, distribuição gaussiana
-**Ferramentas:** MATLAB R2023b ou mais recente; *Control System Toolbox* (`idare`); opcionalmente *Sensor Fusion and Tracking Toolbox* (`trackingKF`). A função `wienerFIR.m` da Aula 1 é reutilizada na Prática 3.
-
 ---
 
 ## Sumário
@@ -41,9 +36,9 @@ Ao final da aula, o aluno deverá ser capaz de:
 
 ## 2. Recapitulando Wiener e o que falta
 
-Na Aula 1, obtivemos o melhor filtro linear sob estas condições:
+Na sobre o filtro de Wiener, obtivemos o melhor filtro linear sob estas condições:
 
-| Wiener (Aula 1) | O que acontece na prática |
+| Wiener | O que acontece na prática |
 |---|---|
 | Processos estacionários | Alvos manobram, ganhos de sensores derivam, sistemas mudam |
 | Estatísticas $\mathbf{R}$ e $\mathbf{p}$ conhecidas | Raramente conhecidas a priori |
@@ -522,10 +517,6 @@ end
 
 - R. E. Kalman, "A New Approach to Linear Filtering and Prediction Problems", *Journal of Basic Engineering*, 82(1), 1960.
 - S. Haykin, *Adaptive Filter Theory*, 5ª ed., Pearson, 2014. (Cap. 10: filtros de Kalman.)
-- D. Simon, *Optimal State Estimation*, Wiley, 2006.
-- Y. Bar-Shalom, X. R. Li e T. Kirubarajan, *Estimation with Applications to Tracking and Navigation*, Wiley, 2001.
 - T. Kailath, A. H. Sayed e B. Hassibi, *Linear Estimation*, Prentice Hall, 2000.
 - B. D. O. Anderson e J. B. Moore, *Optimal Filtering*, Dover, 2005.
-- G. Welch e G. Bishop, "An Introduction to the Kalman Filter", UNC-Chapel Hill, TR 95-041.
 - P. S. R. Diniz, *Adaptive Filtering: Algorithms and Practical Implementation*, 5ª ed., Springer, 2020.
-- Documentação MATLAB: [`idare`](https://www.mathworks.com/help/control/ref/idare.html), [`kalman`](https://www.mathworks.com/help/control/ref/ss.kalman.html), [`trackingKF`](https://www.mathworks.com/help/fusion/ref/trackingkf.html).
