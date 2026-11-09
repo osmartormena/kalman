@@ -469,7 +469,7 @@ for k = 2:N
 end
 ```
 
-**Extensões** (não cobertas nesta aula):
+**Extensões** (para estudos aprofundados):
 
 - **EKF/UKF:** para $\mathbf{x}_k = f(\mathbf{x}_{k-1}) + \mathbf{w}$ e $\mathbf{z}_k = h(\mathbf{x}_k) + \mathbf{v}$ não lineares, o EKF lineariza por Jacobianas; o UKF propaga pontos sigma.
 - **Suavização:** usa também medições **futuras** (processamento offline), com EQM menor que o filtro.
@@ -493,23 +493,13 @@ end
 
 ## 13. Exercícios propostos
 
-**E1 (analítico).** Deduza a fusão escalar da seção 4: mostre que $K = P^-/(P^-+R)$, $P = (1-K)P^-$ e $1/P = 1/P^- + 1/R$.
+**E1 (MATLAB).** Na Prática 2, rode o filtro com $\mathbf{Q}$ multiplicado por $0{,}01$ e depois por $100$. Compare RMSE, NIS e a faixa $\pm 3\sigma$. Em qual caso o filtro é "otimista demais"?
 
-**E2 (analítico).** Na Prática 1 com $Q = 0$, $x_0$ conhecido com variância $P_0$, mostre que $K_k = \dfrac{1}{k + R/P_0}$. Para $P_0 \to \infty$, mostre que $\hat{x}_k$ é a média amostral das medições.
+**E2 (MATLAB).** Na Prática 3, varie $Q/R$ em $\{0{,}01;\,0{,}1;\,1;\,10\}$ e trace $K$ e $J_{\min}$. Qual o comprimento $L$ necessário para o Wiener FIR acompanhar o Kalman em cada caso?
 
-**E3 (analítico).** Mostre que a forma de Joseph se reduz a $(\mathbf{I}-\mathbf{K}\mathbf{H})\mathbf{P}^-$ quando $\mathbf{K} = \mathbf{P}^-\mathbf{H}^{\mathsf T}\mathbf{S}^{-1}$.
+**E3 (MATLAB).** Na Prática 4, varie $q \in \{10^{-6}, 10^{-4}, 10^{-2}\}$ e meça o tempo de convergência após a mudança e a variância das estimativas antes dela. Interprete como compromisso entre rastreamento e ruído.
 
-**E4 (analítico).** Para o modelo escalar da Prática 3, escreva a equação algébrica de Riccati para $P^-$, resolva-a em forma fechada e confira $P^-\approx 0{,}159$ V².
-
-**E5 (MATLAB).** Na Prática 2, rode o filtro com $\mathbf{Q}$ multiplicado por $0{,}01$ e depois por $100$. Compare RMSE, NIS e a faixa $\pm 3\sigma$. Em qual caso o filtro é "otimista demais"?
-
-**E6 (MATLAB).** Na Prática 3, varie $Q/R$ em $\{0{,}01;\,0{,}1;\,1;\,10\}$ e trace $K$ e $J_{\min}$. Qual o comprimento $L$ necessário para o Wiener FIR acompanhar o Kalman em cada caso?
-
-**E7 (MATLAB).** Na Prática 4, varie $q \in \{10^{-6}, 10^{-4}, 10^{-2}\}$ e meça o tempo de convergência após a mudança e a variância das estimativas antes dela. Interprete como compromisso entre rastreamento e ruído.
-
-**E8 (MATLAB).** Compare a Prática 4 com o RLS (fator de esquecimento $\lambda = 0{,}98$) implementado à mão. Escolha $q$ para que os dois tenham comportamento semelhante.
-
-**E9 (reflexão).** Por que o Wiener clássico não se aplica diretamente ao modelo de velocidade constante da Prática 2? Que propriedade do sinal falha?
+**E4 (MATLAB).** Compare a Prática 4 com o RLS (fator de esquecimento $\lambda = 0{,}98$) implementado à mão. Escolha $q$ para que os dois tenham comportamento semelhante.
 
 ---
 
