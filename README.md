@@ -1,4 +1,4 @@
-# Aula 2 — O Filtro de Kalman: estimação recursiva e o caso não estacionário
+# O Filtro de Kalman
 
 **Curso:** Introdução aos Filtros Adaptativos
 **Duração sugerida:** 100 min (2 × 50 min)
